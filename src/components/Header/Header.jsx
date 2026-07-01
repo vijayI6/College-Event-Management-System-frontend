@@ -1,32 +1,36 @@
 import React from "react"
+import { Link } from "react-router-dom"
+import "./Header.css"
 
 export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container navbar-content">
-        <div className="logo">
+        <Link to="/" className="logo">
           <div className="logo-dot"></div>
           <span>CampusEvents</span>
-        </div>
+        </Link>
         <nav>
           <ul className="nav-links">
             <li>
-              <a href="#features" className="nav-link">
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/#features" className="nav-link">
                 Features
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#preview" className="nav-link">
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="nav-link">
+              <Link to="/#about" className="nav-link">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <button className="btn btn-outline">Sign In</button>
+              <Link to="/signin" className="btn btn-outline">
+                Login
+              </Link>
             </li>
           </ul>
         </nav>
@@ -34,3 +38,4 @@ export default function Navbar() {
     </header>
   )
 }
+

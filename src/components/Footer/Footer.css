@@ -1,0 +1,34 @@
+/* footer styles */
+.footer {
+  border-top: 1px solid #1f2937;
+  padding: 40px 0;
+  background-color: #090a0f;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}
+
+.footer-text {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+.footer-devs {
+  font-weight: 500;
+}
+
+.footer-devs span {
+  color: #d946ef;
+}
