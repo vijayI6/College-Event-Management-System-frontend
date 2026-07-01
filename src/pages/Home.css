@@ -52,12 +52,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 42px;
-  }
-}
-
 .hero p {
   font-size: 21px;
   color: #9ca3af;
