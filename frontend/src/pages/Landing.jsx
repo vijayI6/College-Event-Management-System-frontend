@@ -8,26 +8,31 @@ export default function Landing() {
       id: "create",
       title: "Event Creation",
       desc: "Create and publish campus events with custom dates venues and registration limits in seconds",
+      color: "#3b82f6",
     },
     {
       id: "register",
       title: "Student Registrations",
       desc: "Fast online signups for students with instant seat booking and automated email alerts",
+      color: "#a855f7",
     },
     {
       id: "tickets",
       title: "QR Code Tickets",
       desc: "Unique QR tickets issued instantly upon registration for swift and secure entry checks",
+      color: "#ec4899",
     },
     {
       id: "admin",
       title: "Admin Panel",
       desc: "Unified control room to approve events check attendees list and manage user access roles",
+      color: "#10b981",
     },
     {
       id: "analytics",
       title: "Event Analytics",
       desc: "Track total ticket sales registration statistics and live attendee rates with clean charts",
+      color: "#f59e0b",
     },
   ]
 
@@ -63,8 +68,25 @@ export default function Landing() {
         </div>
         <div className="features-grid">
           {features.map((item) => (
-            <div key={item.id} className="feature-card">
-              <h3>{item.title}</h3>
+            <div
+              key={item.id}
+              className="feature-card"
+              style={{
+                borderTop: `4px solid ${item.color}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 12px 30px ${item.color}15`
+                e.currentTarget.style.borderColor = item.color
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "none"
+                e.currentTarget.style.borderColor = "var(--border)"
+                e.currentTarget.style.borderTop = `4px solid ${item.color}`
+              }}
+            >
+              <h3 style={{ color: item.color, fontSize: "20px", marginBottom: "12px" }}>
+                {item.title}
+              </h3>
               <p>{item.desc}</p>
             </div>
           ))}
