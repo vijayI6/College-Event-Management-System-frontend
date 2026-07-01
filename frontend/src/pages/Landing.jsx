@@ -8,113 +8,26 @@ export default function Landing() {
       id: "create",
       title: "Event Creation",
       desc: "Create and publish campus events with custom dates venues and registration limits in seconds",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-          <line x1="16" y1="2" x2="16" y2="6" />
-          <line x1="8" y1="2" x2="8" y2="6" />
-          <line x1="3" y1="10" x2="21" y2="10" />
-          <line x1="12" y1="14" x2="12" y2="20" />
-          <line x1="9" y1="17" x2="15" y2="17" />
-        </svg>
-      ),
     },
     {
       id: "register",
       title: "Student Registrations",
       desc: "Fast online signups for students with instant seat booking and automated email alerts",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v-2" />
-          <circle cx="8.5" cy="7" r="4" />
-          <line x1="20" y1="8" x2="20" y2="14" />
-          <line x1="17" y1="11" x2="23" y2="11" />
-        </svg>
-      ),
     },
     {
       id: "tickets",
       title: "QR Code Tickets",
       desc: "Unique QR tickets issued instantly upon registration for swift and secure entry checks",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <rect x="7" y="7" width="3" height="3" />
-          <rect x="14" y="7" width="3" height="3" />
-          <rect x="7" y="14" width="3" height="3" />
-          <path d="M14 14h3v3h-3z" />
-        </svg>
-      ),
     },
     {
       id: "admin",
       title: "Admin Panel",
       desc: "Unified control room to approve events check attendees list and manage user access roles",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <path d="M9 17v-5" />
-          <path d="M12 17V9" />
-          <path d="M15 17v-3" />
-        </svg>
-      ),
     },
     {
       id: "analytics",
       title: "Event Analytics",
       desc: "Track total ticket sales registration statistics and live attendee rates with clean charts",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="18" y1="20" x2="18" y2="10" />
-          <line x1="12" y1="20" x2="12" y2="4" />
-          <line x1="6" y1="20" x2="6" y2="14" />
-        </svg>
-      ),
     },
   ]
 
@@ -151,7 +64,6 @@ export default function Landing() {
         <div className="features-grid">
           {features.map((item) => (
             <div key={item.id} className="feature-card">
-              <div className="feature-icon-wrapper">{item.icon}</div>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
             </div>
