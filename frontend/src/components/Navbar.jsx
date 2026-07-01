@@ -3,7 +3,7 @@ import React from "react"
 export default function Navbar() {
   return (
     <header className="navbar">
-      <div className="container navbar-content">
+      <div className="navbar-container navbar-content">
         <div className="logo">
           <div className="logo-dot"></div>
           <span>CampusEvents</span>
