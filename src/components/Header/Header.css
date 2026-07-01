@@ -1,7 +1,7 @@
 /* navigation styles */
 .navbar {
-  border-bottom: 1px solid #1f2937;
-  background-color: rgba(9, 10, 15, 0.8);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--navbar-bg);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
@@ -9,6 +9,8 @@
   height: 80px;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--navbar-shadow);
 }
 
 .navbar-container {
@@ -35,15 +37,15 @@
 }
 
 .logo-campus {
-  color: #6366f1;
+  color: var(--logo-campus-color);
 }
 
 .logo-dot {
   width: 12px;
   height: 12px;
-  background: #4f46e5;
+  background: var(--logo-dot-color);
   border-radius: 50%;
-  box-shadow: 0 0 12px #4f46e5;
+  box-shadow: 0 0 12px var(--logo-dot-shadow);
 }
 
 .nav-links {
@@ -54,12 +56,43 @@
 }
 
 .nav-link {
-  color: #9ca3af;
+  color: var(--text-muted);
   font-size: 18px;
   font-weight: 500;
   transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: #f3f4f6;
+  color: var(--text-color);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.theme-toggle:hover {
+  color: var(--text-color);
+  border-color: var(--btn-outline-border-hover);
+  background-color: var(--btn-outline-hover);
+}
+
+.theme-toggle-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:active .theme-toggle-icon {
+  transform: rotate(15deg) scale(0.9);
 }

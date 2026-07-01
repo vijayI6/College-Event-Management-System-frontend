@@ -1,3 +1,81 @@
+:root {
+  /* Default: Dark Theme */
+  --bg-color: #090a0f;
+  --text-color: #f3f4f6;
+  --text-muted: #9ca3af;
+  --card-bg: #12131a;
+  --card-bg-hover: #181a24;
+  --border-color: #1f2937;
+  --btn-outline-hover: rgba(255, 255, 255, 0.05);
+  --btn-outline-border-hover: #9ca3af;
+  --navbar-bg: rgba(9, 10, 15, 0.8);
+  --navbar-shadow: none;
+  --hero-title-gradient: linear-gradient(135deg, #fff 40%, #3b82f6 100%);
+  --badge-bg: rgba(255, 255, 255, 0.03);
+  --badge-span-color: #14b8a6; /* teal accent */
+  --glow-opacity: 0.2;
+  --auth-input-bg: rgba(0, 0, 0, 0.2);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: rgba(59, 130, 246, 0.15);
+  --btn-outline-text: #f3f4f6;
+  --btn-outline-border: #1f2937;
+
+  /* Sapphire Blue & Ocean Teal variables (Dark theme) */
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-glow: rgba(59, 130, 246, 0.4);
+  --primary-glow-light: rgba(59, 130, 246, 0.2);
+  --logo-campus-color: #60a5fa;
+  --logo-dot-color: #3b82f6;
+  --logo-dot-shadow: #3b82f6;
+  --primary-border-hover: rgba(59, 130, 246, 0.4);
+  --primary-card-glow: rgba(59, 130, 246, var(--glow-opacity));
+
+  /* Section backgrounds (Dark) */
+  --hero-bg: transparent;
+  --features-bg: transparent;
+  --about-bg: transparent;
+}
+
+[data-theme='light'] {
+  /* Professional Light Theme */
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
+  --text-muted: #475569;
+  --card-bg: #ffffff;
+  --card-bg-hover: #ffffff;
+  --border-color: #f1f5f9;
+  --btn-outline-hover: #f1f5f9;
+  --btn-outline-border-hover: #475569;
+  --navbar-bg: rgba(255, 255, 255, 0.85);
+  --navbar-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --hero-title-gradient: linear-gradient(135deg, #0f172a 20%, #1e3a8a 60%, #2563eb 100%);
+  --badge-bg: rgba(37, 99, 235, 0.06);
+  --badge-span-color: #0d9488; /* Ocean Teal */
+  --glow-opacity: 0.12;
+  --auth-input-bg: #ffffff;
+  --shadow-color: rgba(15, 23, 42, 0.03);
+  --shadow-card-hover: rgba(37, 99, 235, 0.06);
+  --btn-outline-text: #0f172a;
+  --btn-outline-border: #cbd5e1;
+
+  /* Sapphire Blue & Ocean Teal variables (Light theme) */
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-glow: rgba(37, 99, 235, 0.3);
+  --primary-glow-light: rgba(37, 99, 235, 0.15);
+  --logo-campus-color: #2563eb;
+  --logo-dot-color: #0d9488;
+  --logo-dot-shadow: rgba(13, 148, 136, 0.4);
+  --primary-border-hover: rgba(37, 99, 235, 0.3);
+  --primary-card-glow: rgba(13, 148, 136, var(--glow-opacity));
+
+  /* Section backgrounds (Light) */
+  --hero-bg: radial-gradient(100% 120% at 50% 0%, #ffffff 0%, #f8fafc 100%);
+  --features-bg: #ffffff;
+  --about-bg: #f8fafc;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,11 +83,12 @@
 }
 
 body {
-  background-color: #090a0f;
-  color: #f3f4f6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -46,22 +125,22 @@ a {
 }
 
 .btn-primary {
-  background-color: #4f46e5;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background-color: #6366f1;
-  box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+  background-color: var(--primary-hover);
+  box-shadow: 0 0 20px var(--primary-glow);
 }
 
 .btn-outline {
   background-color: transparent;
-  color: #f3f4f6;
-  border: 1px solid #1f2937;
+  color: var(--btn-outline-text);
+  border: 1px solid var(--btn-outline-border);
 }
 
 .btn-outline:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: #9ca3af;
+  background-color: var(--btn-outline-hover);
+  border-color: var(--btn-outline-border-hover);
 }

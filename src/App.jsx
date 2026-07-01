@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
 import Navbar from "./components/Header/Header"
 import Landing from "./pages/Home"
@@ -28,10 +28,23 @@ function ScrollToHash() {
 }
 
 export default function App() {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "dark"
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme)
+    localStorage.setItem("theme", theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+  }
+
   return (
     <Router>
       <ScrollToHash />
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />

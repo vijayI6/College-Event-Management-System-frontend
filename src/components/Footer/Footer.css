@@ -1,9 +1,10 @@
 /* footer styles */
 .footer {
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid var(--border-color);
   padding: 40px 0;
-  background-color: #090a0f;
+  background-color: var(--bg-color);
   margin-top: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .footer-content {
@@ -21,7 +22,7 @@
 }
 
 .footer-text {
-  color: #9ca3af;
+  color: var(--text-muted);
   font-size: 16px;
 }
 
@@ -30,5 +31,6 @@
 }
 
 .footer-devs span {
-  color: #d946ef;
+  color: var(--badge-span-color);
+  transition: color 0.3s ease;
 }
