@@ -126,9 +126,9 @@ export default function Landing() {
           Created by <span>Macha Rishi</span> &amp; <span>Sai Vijay</span>
         </div>
         <h1>
-          Shnoor Internatinal LLC
+          Shnoor International LLC
           <br />
-          Event Management Sytem
+          Event Management System
         </h1>
         <p>
           Simple college event registration portal to join events and get your digital QR ticket fast
