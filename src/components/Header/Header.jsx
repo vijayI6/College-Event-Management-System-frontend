@@ -8,7 +8,7 @@ export default function Navbar() {
       <div className="navbar-container navbar-content">
         <Link to="/" className="logo">
           <div className="logo-dot"></div>
-          <span>CampusEvents</span>
+          <span><span className="logo-campus">Campus</span>Events</span>
         </Link>
         <nav>
           <ul className="nav-links">
