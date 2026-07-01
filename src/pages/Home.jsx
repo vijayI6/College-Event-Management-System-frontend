@@ -102,10 +102,7 @@ export default function Landing() {
       <section className="about-section" id="about" style={{ padding: "80px 0", borderTop: "1px solid #1f2937" }}>
         <div className="section-header" style={{ maxWidth: "100%", margin: "0 auto 48px auto" }}>
           <h2>About CampusEvents</h2>
-          <p style={{ marginBottom: "20px" }}>CampusEvents is the ultimate event hub designed specifically for our college community.It bridges the gap between campus event organizers and students by providing a seamless,
-            automated experience from event discovery to entry check-ins. Whether you are looking to attend
-            technical symposia, cultural festivals, or academic seminars, CampusEvents makes registration
-            instantaneous and issues digitized QR tickets directly to your device for hassle-free check-ins.</p>
+          <p style={{ marginBottom: "20px" }}><strong>CampusEvents</strong> is a college event management system that helps students easily find and register for campus events. After registration, students receive a QR code ticket for quick and easy check-in at the event.</p>
         </div>
 
         <div className="features-grid">
