@@ -259,19 +259,8 @@ export default function Dashboard({ theme, toggleTheme, setUser }) {
   const registeredEvents = events.filter((e) => registeredIds.includes(e.id))
 
   // get category styling colors
-  const getCategoryColor = (cat) => {
-    switch (cat) {
-      case "Technical":
-        return "#3b82f6"
-      case "Cultural":
-        return "#a855f7"
-      case "Sports":
-        return "#ec4899"
-      case "Workshops":
-        return "#10b981"
-      default:
-        return "#6b7280"
-    }
+  const getCategoryColor = () => {
+    return "#3b82f6"
   }
 
   // trigger ticket text download
