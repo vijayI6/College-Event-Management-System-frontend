@@ -2,20 +2,42 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./Auth.css"
 
-export default function SignIn() {
+export default function SignIn({ setUser }) {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    // Simulating authentication
-    setTimeout(() => {
+    setError("")
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        localStorage.setItem("token", data.token)
+        localStorage.setItem("user", JSON.stringify(data.user))
+        setUser(data.user)
+        navigate("/")
+      } else {
+        setError(data.message || "Invalid credentials. Please try again.")
+      }
+    } catch (err) {
+      setError("Unable to connect to the authentication server. Please verify the backend is running.")
+      console.error("Login error:", err)
+    } finally {
       setLoading(false)
-      alert("Successfully signed in (Demo)!")
-      navigate("/")
-    }, 1500)
+    }
   }
 
   return (
@@ -26,6 +48,8 @@ export default function SignIn() {
           <h2 className="auth-title">Welcome Back</h2>
           <p className="auth-subtitle">Enter your campus credentials to access your account</p>
         </div>
+
+        {error && <div className="auth-error-message">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="auth-form-group">

@@ -32,6 +32,16 @@ export default function App() {
     return localStorage.getItem("theme") || "dark"
   })
 
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user")
+    try {
+      return savedUser ? JSON.parse(savedUser) : null
+    } catch (e) {
+      console.error("Error parsing saved user from localStorage:", e)
+      return null
+    }
+  })
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme)
     localStorage.setItem("theme", theme)
@@ -44,10 +54,10 @@ export default function App() {
   return (
     <Router>
       <ScrollToHash />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />

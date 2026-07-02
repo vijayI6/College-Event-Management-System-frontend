@@ -2,7 +2,13 @@ import React from "react"
 import { Link } from "react-router-dom"
 import "./Header.css"
 
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar({ theme, toggleTheme, user, setUser }) {
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    setUser(null)
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-container navbar-content">
@@ -53,11 +59,24 @@ export default function Navbar({ theme, toggleTheme }) {
                 )}
               </button>
             </li>
-            <li>
-              <Link to="/signin" className="btn btn-outline">
-                Login
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li className="nav-user">
+                  <span className="user-name">Hi, {user.name.split(" ")[0]}</span>
+                </li>
+                <li>
+                  <button onClick={handleLogout} className="btn btn-outline" style={{ cursor: "pointer" }}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/signin" className="btn btn-outline">
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

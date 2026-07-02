@@ -96,3 +96,21 @@
 .theme-toggle:active .theme-toggle-icon {
   transform: rotate(15deg) scale(0.9);
 }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-name {
+  color: var(--text-color);
+  font-weight: 600;
+  background: var(--btn-outline-hover);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}

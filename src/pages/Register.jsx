@@ -11,16 +11,36 @@ export default function Register() {
     password: "",
   })
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    // Simulating registration
-    setTimeout(() => {
+    setError("")
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert("Registration successful! You can now log in.")
+        navigate("/signin")
+      } else {
+        setError(data.message || "Registration failed. Please try again.")
+      }
+    } catch (err) {
+      setError("Unable to connect to the registration server. Please verify the backend is running.")
+      console.error("Registration error:", err)
+    } finally {
       setLoading(false)
-      alert("Registration successful (Demo)!")
-      navigate("/signin")
-    }, 1500)
+    }
   }
 
   return (
@@ -31,6 +51,8 @@ export default function Register() {
           <h2 className="auth-title">Create Account</h2>
           <p className="auth-subtitle">Join CampusEvents to reserve your digital QR tickets</p>
         </div>
+
+        {error && <div className="auth-error-message">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="auth-form-group">
