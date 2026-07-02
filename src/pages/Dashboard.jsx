@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Dashboard.css"
 
-export default function Dashboard({ theme, toggleTheme }) {
+export default function Dashboard({ theme, toggleTheme, setUser }) {
   const navigate = useNavigate()
 
   // state for current active tab
@@ -237,6 +237,11 @@ export default function Dashboard({ theme, toggleTheme }) {
   // logout session
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("user")
+      localStorage.removeItem("token")
+      if (setUser) {
+        setUser(null)
+      }
       navigate("/")
     }
   }

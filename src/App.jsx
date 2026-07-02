@@ -43,7 +43,7 @@ function AppContent({ theme, toggleTheme, user, setUser }) {
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard theme={theme} toggleTheme={toggleTheme} />} />
+        <Route path="/dashboard" element={<Dashboard theme={theme} toggleTheme={toggleTheme} setUser={setUser} />} />
       </Routes>
       {!isDashboard && <Footer />}
     </>
