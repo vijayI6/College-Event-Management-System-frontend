@@ -306,7 +306,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               setSidebarOpen(false)
             }}
           >
-            <span className="db-icon">🏠</span> Home
+            Home
           </button>
           <button
             className={`db-nav-item ${activeTab === "browse" ? "active" : ""}`}
@@ -315,7 +315,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               setSidebarOpen(false)
             }}
           >
-            <span className="db-icon">🔍</span> Browse Events
+            Browse Events
           </button>
           <button
             className={`db-nav-item ${activeTab === "my-events" ? "active" : ""}`}
@@ -324,7 +324,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               setSidebarOpen(false)
             }}
           >
-            <span className="db-icon">📅</span> My Events
+            My Events
           </button>
           <button
             className={`db-nav-item ${activeTab === "profile" ? "active" : ""}`}
@@ -333,7 +333,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               setSidebarOpen(false)
             }}
           >
-            <span className="db-icon">👤</span> Profile
+            Profile
           </button>
           <button
             className={`db-nav-item ${activeTab === "notifications" ? "active" : ""}`}
@@ -342,7 +342,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               setSidebarOpen(false)
             }}
           >
-            <span className="db-icon">🔔</span> Notifications
+            Notifications
             {notifications.length > 0 && (
               <span className="db-badge-count">{notifications.length}</span>
             )}
@@ -350,10 +350,10 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
         </nav>
         <div className="db-sidebar-footer">
           <button className="db-theme-btn" onClick={toggleTheme}>
-            {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
           </button>
           <button className="db-logout-btn" onClick={handleLogout}>
-            🚪 Logout
+            Logout
           </button>
         </div>
       </aside>
@@ -369,7 +369,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
             <span>CampusEvents</span>
           </div>
           <button className="db-mobile-theme" onClick={toggleTheme}>
-            {theme === "dark" ? "☀️" : "🌙"}
+            {theme === "dark" ? "Light" : "Dark"}
           </button>
         </header>
 
@@ -386,17 +386,14 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               {/* quick dashboard metrics */}
               <div className="db-metrics">
                 <div className="db-card">
-                  <div className="metric-icon">🎟️</div>
                   <div className="metric-val">{registeredIds.length}</div>
                   <div className="metric-label">registered events</div>
                 </div>
                 <div className="db-card">
-                  <div className="metric-icon">📅</div>
                   <div className="metric-val">{events.length}</div>
                   <div className="metric-label">total events</div>
                 </div>
                 <div className="db-card">
-                  <div className="metric-icon">🔔</div>
                   <div className="metric-val">{notifications.length}</div>
                   <div className="metric-label">unread notices</div>
                 </div>
@@ -530,8 +527,8 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
                         <h3>{item.title}</h3>
                         <p className="event-desc">{item.desc}</p>
                         <div className="event-card-meta">
-                          <span>📅 {item.date}</span>
-                          <span>📍 {item.venue}</span>
+                          <span>{item.date}</span>
+                          <span>{item.venue}</span>
                         </div>
                         <div className="event-card-actions">
                           <button
@@ -607,7 +604,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
                           className="btn btn-primary btn-sm"
                           onClick={() => setSelectedTicket(item)}
                         >
-                          🎫 view qr ticket
+                          view qr ticket
                         </button>
                         <button
                           className="btn btn-outline btn-sm text-danger"
@@ -740,11 +737,6 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
                 <div className="notifications-list">
                   {notifications.map((notif) => (
                     <div key={notif.id} className={`notification-item ${notif.type}`}>
-                      <div className="notif-icon">
-                        {notif.type === "success" && "✅"}
-                        {notif.type === "warning" && "⚠️"}
-                        {notif.type === "info" && "ℹ️"}
-                      </div>
                       <div className="notif-body">
                         <p>{notif.text}</p>
                         <span className="notif-time">{notif.time}</span>
@@ -783,23 +775,23 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               <div className="modal-specs-grid">
                 <div className="spec-item">
                   <strong>date &amp; time:</strong>
-                  <span>📅 {selectedEvent.date} at {selectedEvent.time}</span>
+                  <span>{selectedEvent.date} at {selectedEvent.time}</span>
                 </div>
                 <div className="spec-item">
                   <strong>venue space:</strong>
-                  <span>📍 {selectedEvent.venue}</span>
+                  <span>{selectedEvent.venue}</span>
                 </div>
                 <div className="spec-item">
                   <strong>club organizer:</strong>
-                  <span>👤 {selectedEvent.organizer}</span>
+                  <span>{selectedEvent.organizer}</span>
                 </div>
                 <div className="spec-item">
                   <strong>deadline date:</strong>
-                  <span>⏰ {selectedEvent.deadline}</span>
+                  <span>{selectedEvent.deadline}</span>
                 </div>
                 <div className="spec-item">
                   <strong>seats left:</strong>
-                  <span>🎟️ {selectedEvent.seats} of {selectedEvent.maxSeats} slots</span>
+                  <span>{selectedEvent.seats} of {selectedEvent.maxSeats} slots</span>
                 </div>
               </div>
             </div>
@@ -859,8 +851,8 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
                   <strong>student:</strong> {profile.name} ({profile.studentId})
                 </p>
                 <div className="ticket-time-venue">
-                  <p>📍 {selectedTicket.venue}</p>
-                  <p>📅 {selectedTicket.date} at {selectedTicket.time}</p>
+                  <p>{selectedTicket.venue}</p>
+                  <p>{selectedTicket.date} at {selectedTicket.time}</p>
                 </div>
                 <span className="scan-note">please show this qr code at entry gates for scanner check</span>
               </div>
@@ -870,7 +862,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
                 close
               </button>
               <button className="btn btn-primary" onClick={() => handleDownloadTicket(selectedTicket)}>
-                💾 download ticket
+                download ticket
               </button>
             </div>
           </div>
