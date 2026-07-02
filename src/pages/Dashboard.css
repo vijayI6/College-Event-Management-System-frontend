@@ -309,21 +309,9 @@
 
 .notif-mini-item {
   padding: 10px 12px;
-  border-left: 3px solid var(--border-color);
+  border-left: 3px solid var(--primary-color);
   background-color: rgba(255, 255, 255, 0.01);
   border-radius: 0 6px 6px 0;
-}
-
-.notif-mini-item.success {
-  border-left-color: #10b981;
-}
-
-.notif-mini-item.warning {
-  border-left-color: #f59e0b;
-}
-
-.notif-mini-item.info {
-  border-left-color: #3b82f6;
 }
 
 .notif-mini-item p {
