@@ -295,63 +295,75 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
       {/* sidebar constant component */}
       <aside className={`db-sidebar ${sidebarOpen ? "active" : ""}`}>
         <div className="db-logo">
-          <div className="logo-dot"></div>
-          <span>CampusEvents</span>
+          <div className="db-logo-badge">CE</div>
+          <div className="db-logo-text">
+            <span className="db-logo-title">CampusEvents</span>
+            <span className="db-logo-subtitle">Student Dashboard</span>
+          </div>
         </div>
-        <nav className="db-nav">
-          <button
-            className={`db-nav-item ${activeTab === "home" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("home")
-              setSidebarOpen(false)
-            }}
-          >
-            Home
-          </button>
-          <button
-            className={`db-nav-item ${activeTab === "browse" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("browse")
-              setSidebarOpen(false)
-            }}
-          >
-            Browse Events
-          </button>
-          <button
-            className={`db-nav-item ${activeTab === "my-events" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("my-events")
-              setSidebarOpen(false)
-            }}
-          >
-            My Events
-          </button>
-          <button
-            className={`db-nav-item ${activeTab === "profile" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("profile")
-              setSidebarOpen(false)
-            }}
-          >
-            Profile
-          </button>
-          <button
-            className={`db-nav-item ${activeTab === "notifications" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("notifications")
-              setSidebarOpen(false)
-            }}
-          >
-            Notifications
-            {notifications.length > 0 && (
-              <span className="db-badge-count">{notifications.length}</span>
-            )}
-          </button>
-        </nav>
+        <div className="db-menu-section">
+          <span className="db-menu-label">MENU</span>
+          <nav className="db-nav">
+            <button
+              className={`db-nav-item ${activeTab === "home" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("home")
+                setSidebarOpen(false)
+              }}
+            >
+              <span className="db-icon-badge">HM</span> Home
+            </button>
+            <button
+              className={`db-nav-item ${activeTab === "browse" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("browse")
+                setSidebarOpen(false)
+              }}
+            >
+              <span className="db-icon-badge">BE</span> Browse Events
+            </button>
+            <button
+              className={`db-nav-item ${activeTab === "my-events" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("my-events")
+                setSidebarOpen(false)
+              }}
+            >
+              <span className="db-icon-badge">MT</span> My tickets
+            </button>
+            <button
+              className={`db-nav-item ${activeTab === "profile" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("profile")
+                setSidebarOpen(false)
+              }}
+            >
+              <span className="db-icon-badge">PR</span> Profile
+            </button>
+            <button
+              className={`db-nav-item ${activeTab === "notifications" ? "active" : ""}`}
+              onClick={() => {
+                setActiveTab("notifications")
+                setSidebarOpen(false)
+              }}
+            >
+              <span className="db-icon-badge">NT</span> Notifications
+              {notifications.length > 0 && (
+                <span className="db-badge-count">{notifications.length}</span>
+              )}
+            </button>
+          </nav>
+        </div>
         <div className="db-sidebar-footer">
-          <button className="db-theme-btn" onClick={toggleTheme}>
-            {theme === "dark" ? "Light Mode" : "Dark Mode"}
-          </button>
+          <div className="db-user-profile">
+            <div className="db-user-avatar">
+              {profile.name ? profile.name.charAt(0).toUpperCase() : "M"}
+            </div>
+            <div className="db-user-info">
+              <div className="db-user-name">{profile.name}</div>
+              <div className="db-user-email">{profile.email}</div>
+            </div>
+          </div>
           <button className="db-logout-btn" onClick={handleLogout}>
             Logout
           </button>
@@ -366,11 +378,32 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
             ☰
           </button>
           <div className="db-logo">
-            <span>CampusEvents</span>
+            <div className="db-logo-badge">CE</div>
+            <span className="db-logo-title">CampusEvents</span>
           </div>
           <button className="db-mobile-theme" onClick={toggleTheme}>
             {theme === "dark" ? "Light" : "Dark"}
           </button>
+        </header>
+
+        {/* desktop main header */}
+        <header className="db-main-header">
+          <div className="db-header-left">
+            <span className="db-header-category">STUDENT DASHBOARD</span>
+            <h2 className="db-header-title">
+              {activeTab === "home" && "Overview"}
+              {activeTab === "browse" && "Browse Events"}
+              {activeTab === "my-events" && "My tickets"}
+              {activeTab === "profile" && "Profile"}
+              {activeTab === "notifications" && "Notifications"}
+            </h2>
+          </div>
+          <div className="db-header-right">
+            <span className="db-role-badge">Student</span>
+            <button className="db-header-theme-toggle" onClick={toggleTheme}>
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
+          </div>
         </header>
 
         {/* tab contents wrapper */}
@@ -379,23 +412,26 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
             <div className="db-tab-view animate-fade">
               {/* welcome and info header */}
               <div className="db-welcome">
-                <h1>welcome back {profile.name}</h1>
+                <h1>Hello, {profile.name.split(" ")[0]}</h1>
                 <p>keep track of your registered campus events and schedules here</p>
               </div>
 
               {/* quick dashboard metrics */}
               <div className="db-metrics">
                 <div className="db-card">
+                  <div className="metric-label">My registered events</div>
                   <div className="metric-val">{registeredIds.length}</div>
-                  <div className="metric-label">registered events</div>
+                  <div className="metric-desc">Events you are signed up for</div>
                 </div>
                 <div className="db-card">
+                  <div className="metric-label">Total Events</div>
                   <div className="metric-val">{events.length}</div>
-                  <div className="metric-label">total events</div>
+                  <div className="metric-desc">Total active campus events</div>
                 </div>
                 <div className="db-card">
+                  <div className="metric-label">Unread Notices</div>
                   <div className="metric-val">{notifications.length}</div>
-                  <div className="metric-label">unread notices</div>
+                  <div className="metric-desc">Latest updates in your inbox</div>
                 </div>
               </div>
 
@@ -565,7 +601,7 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
           {activeTab === "my-events" && (
             <div className="db-tab-view animate-fade">
               <div className="db-welcome">
-                <h1>your registered events</h1>
+                <h1>My registered events</h1>
                 <p>track your registrations and download tickets for event entries</p>
               </div>
 
@@ -748,6 +784,14 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
             </div>
           )}
         </div>
+        <footer className="db-main-footer">
+          <p>© 2026 CampusEvents — Built for learning and event management</p>
+          <div className="db-footer-links">
+            <a href="#" onClick={(e) => e.preventDefault()}>Privacy</a>
+            <a href="#" onClick={(e) => e.preventDefault()}>Terms</a>
+            <a href="#" onClick={(e) => e.preventDefault()}>Support</a>
+          </div>
+        </footer>
       </div>
 
       {/* detailed event popup overlay */}

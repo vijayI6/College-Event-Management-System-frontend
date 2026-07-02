@@ -843,3 +843,255 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Custom Redesign Styles aligned with InterviewAI Mockup */
+
+/* Sidebar logo update */
+.db-sidebar .db-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.db-logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+  box-shadow: 0 4px 10px var(--primary-glow);
+}
+
+.db-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.db-logo-title {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text-color);
+  line-height: 1.2;
+}
+
+.db-logo-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Sidebar Menu Sections */
+.db-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.db-menu-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  padding-left: 16px;
+}
+
+/* Icon Badges for Sidebar Navigation items */
+.db-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+[data-theme='light'] .db-icon-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-muted);
+}
+
+.db-nav-item:hover .db-icon-badge {
+  color: var(--text-color);
+}
+
+.db-nav-item.active .db-icon-badge {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+/* User profile details in sidebar footer */
+.db-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+[data-theme='light'] .db-user-profile {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.db-user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.db-user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.db-user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.db-user-email {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Desktop Main Header */
+.db-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+}
+
+.db-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.db-header-category {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.db-header-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.db-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.db-role-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: rgba(59, 130, 246, 0.12);
+  color: var(--primary-color);
+}
+
+.db-header-theme-toggle {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.db-header-theme-toggle:hover {
+  background-color: var(--btn-outline-hover);
+}
+
+/* Main Dashboard Footer */
+.db-main-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.db-footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.db-footer-links a {
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.db-footer-links a:hover {
+  color: var(--text-color);
+}
+
+/* Metrics descriptions styling */
+.metric-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* Responsive fixes for new header/footer */
+@media (max-width: 900px) {
+  .db-main-header {
+    display: none;
+  }
+  .db-main-footer {
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
