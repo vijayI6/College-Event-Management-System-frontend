@@ -38,42 +38,42 @@
 }
 
 [data-theme='light'] {
-  /* Professional Light Theme */
-  --bg-color: #f8fafc;
-  --text-color: #0f172a;
-  --text-muted: #475569;
+  /* Premium Light Theme aligned with Dark Theme Standards */
+  --bg-color: #f4f6fa;
+  --text-color: #1e293b; /* Softer slate-800 instead of slate-900 */
+  --text-muted: #556980; /* Softer slate-500/600 blend */
   --card-bg: #ffffff;
   --card-bg-hover: #ffffff;
-  --border-color: #f1f5f9;
-  --btn-outline-hover: #f1f5f9;
+  --border-color: #e2e8f0; /* Visible border against soft gray background */
+  --btn-outline-hover: #e2e8f0;
   --btn-outline-border-hover: #475569;
-  --navbar-bg: rgba(255, 255, 255, 0.85);
-  --navbar-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
-  --hero-title-gradient: linear-gradient(135deg, #0f172a 20%, #1e3a8a 60%, #2563eb 100%);
+  --navbar-bg: rgba(244, 246, 250, 0.85); /* Transparent blurred navbar */
+  --navbar-shadow: 0 4px 18px -4px rgba(15, 23, 42, 0.05);
+  --hero-title-gradient: linear-gradient(135deg, #1e293b 20%, #2563eb 60%, #3b82f6 100%);
   --badge-bg: rgba(37, 99, 235, 0.06);
-  --badge-span-color: #0d9488; /* Ocean Teal */
-  --glow-opacity: 0.12;
+  --badge-span-color: #0f766e; /* Deep Ocean Teal for readability and softness */
+  --glow-opacity: 0.15; /* Rich ambient glows matching dark theme standard */
   --auth-input-bg: #ffffff;
   --shadow-color: rgba(15, 23, 42, 0.03);
-  --shadow-card-hover: rgba(37, 99, 235, 0.06);
-  --btn-outline-text: #0f172a;
+  --shadow-card-hover: rgba(37, 99, 235, 0.08);
+  --btn-outline-text: #1e293b;
   --btn-outline-border: #cbd5e1;
 
   /* Sapphire Blue & Ocean Teal variables (Light theme) */
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-glow: rgba(37, 99, 235, 0.3);
-  --primary-glow-light: rgba(37, 99, 235, 0.15);
-  --logo-campus-color: #2563eb;
-  --logo-dot-color: #0d9488;
-  --logo-dot-shadow: rgba(13, 148, 136, 0.4);
-  --primary-border-hover: rgba(37, 99, 235, 0.3);
-  --primary-card-glow: rgba(13, 148, 136, var(--glow-opacity));
+  --primary-color: #3b82f6; /* Premium sapphire blue */
+  --primary-hover: #2563eb; /* Deeper blue for hover interaction */
+  --primary-glow: rgba(59, 130, 246, 0.35);
+  --primary-glow-light: rgba(59, 130, 246, 0.18);
+  --logo-campus-color: #3b82f6;
+  --logo-dot-color: #10b981;
+  --logo-dot-shadow: rgba(16, 185, 129, 0.4);
+  --primary-border-hover: rgba(59, 130, 246, 0.3);
+  --primary-card-glow: rgba(16, 185, 129, var(--glow-opacity));
 
-  /* Section backgrounds (Light) */
-  --hero-bg: radial-gradient(100% 120% at 50% 0%, #ffffff 0%, #f8fafc 100%);
-  --features-bg: #ffffff;
-  --about-bg: #f8fafc;
+  /* Section backgrounds (Light) - Transparent matching dark theme standards */
+  --hero-bg: transparent;
+  --features-bg: transparent;
+  --about-bg: transparent;
 }
 
 * {
