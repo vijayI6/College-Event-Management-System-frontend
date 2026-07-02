@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Dashboard.css"
 
-export default function Dashboard({ theme, toggleTheme, setUser }) {
+export default function Dashboard({ theme, toggleTheme, user, setUser }) {
   const navigate = useNavigate()
 
   // state for current active tab
@@ -22,10 +22,13 @@ export default function Dashboard({ theme, toggleTheme, setUser }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // user profile state
-  const [profile, setProfile] = useState({
-    name: "Macha Rishi",
-    email: "rishi@college.edu",
-    studentId: "22CSE1045",
+  const [profile, setProfile] = useState(() => {
+    const savedUser = localStorage.getItem("user")
+    try {
+      return savedUser ? JSON.parse(savedUser) : { name: "Student", email: "", studentId: "" }
+    } catch (e) {
+      return { name: "Student", email: "", studentId: "" }
+    }
   })
 
   // password state
@@ -36,89 +39,13 @@ export default function Dashboard({ theme, toggleTheme, setUser }) {
   })
 
   // list of events in app
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: "Smart India Hackathon Prep",
-      category: "Technical",
-      desc: "Get ready for national hackathon with expert mentor support and coding tips",
-      date: "2026-07-15",
-      time: "10:00 AM",
-      venue: "Seminar Hall 2 Block A",
-      organizer: "Coding Club",
-      deadline: "2026-07-12",
-      seats: 45,
-      maxSeats: 50,
-    },
-    {
-      id: 2,
-      title: "Annual Cultural Fest Spandan",
-      category: "Cultural",
-      desc: "Join the biggest cultural show with dance music and drama performances",
-      date: "2026-08-20",
-      time: "05:00 PM",
-      venue: "Main Open Auditorium",
-      organizer: "Student Council",
-      deadline: "2026-08-15",
-      seats: 198,
-      maxSeats: 200,
-    },
-    {
-      id: 3,
-      title: "Inter-College Cricket Cup",
-      category: "Sports",
-      desc: "Come and support our college cricket team in final match of tournament",
-      date: "2026-07-18",
-      time: "09:00 AM",
-      venue: "College Sports Ground",
-      organizer: "Sports Committee",
-      deadline: "2026-07-16",
-      seats: 120,
-      maxSeats: 150,
-    },
-    {
-      id: 4,
-      title: "AI and Deep Learning Workshop",
-      category: "Workshops",
-      desc: "Learn neural networks and deep learning models with live lab practice",
-      date: "2026-07-25",
-      time: "11:00 AM",
-      venue: "Lab 4 Block B",
-      organizer: "CSE Department",
-      deadline: "2026-07-22",
-      seats: 29,
-      maxSeats: 30,
-    },
-    {
-      id: 5,
-      title: "Public Speaking Boot Camp",
-      category: "Workshops",
-      desc: "Improve your presentation and speaking skills with simple steps",
-      date: "2026-07-30",
-      time: "02:00 PM",
-      venue: "Lounge Area Block C",
-      organizer: "Toastmasters Club",
-      deadline: "2026-07-28",
-      seats: 15,
-      maxSeats: 20,
-    },
-    {
-      id: 6,
-      title: "Campus Photography Contest",
-      category: "Cultural",
-      desc: "Submit your best shots of campus life to win amazing rewards",
-      date: "2026-08-05",
-      time: "12:00 PM",
-      venue: "Online Submission Portal",
-      organizer: "Media Club",
-      deadline: "2026-08-03",
-      seats: 80,
-      maxSeats: 100,
-    },
-  ])
+  const [events, setEvents] = useState([])
 
   // user registered event ids state
-  const [registeredIds, setRegisteredIds] = useState([1, 3])
+  const [registeredIds, setRegisteredIds] = useState([])
+
+  // loading state
+  const [loading, setLoading] = useState(true)
 
   // state for notifications list
   const [notifications, setNotifications] = useState([
@@ -127,106 +54,290 @@ export default function Dashboard({ theme, toggleTheme, setUser }) {
       type: "info",
       text: "welcome to your new student dashboard",
       time: "just now",
-    },
-    {
-      id: 102,
-      type: "success",
-      text: "registered for smart india hackathon prep successfully",
-      time: "1 hour ago",
-    },
-    {
-      id: 103,
-      type: "success",
-      text: "registered for inter-college cricket cup successfully",
-      time: "2 hours ago",
-    },
+    }
   ])
 
+  // Fetch initial data from backend
+  React.useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      navigate("/signin")
+      return
+    }
+
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true)
+        
+        // 1. Fetch user profile populated with registeredEvents
+        const profileRes = await fetch("http://localhost:5000/api/users/profile", {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        const profileData = await profileRes.json()
+
+        if (profileData.success) {
+          const userObj = profileData.user;
+          setProfile({
+            name: userObj.name,
+            email: userObj.email,
+            studentId: userObj.studentId
+          })
+          
+          // Map mongoose ObjectIds to local state registeredIds
+          const regIds = userObj.registeredEvents.map(e => e._id || e)
+          setRegisteredIds(regIds)
+
+          // Seed user registered notifications
+          const formattedNotifs = [
+            {
+              id: 101,
+              type: "info",
+              text: "Welcome to your student event dashboard!",
+              time: "just now",
+            }
+          ]
+          userObj.registeredEvents.forEach((evt, idx) => {
+            formattedNotifs.unshift({
+              id: Date.now() + idx,
+              type: "success",
+              text: `Registered for ${evt.title} successfully`,
+              time: "active schedule",
+            })
+          })
+          setNotifications(formattedNotifs)
+        } else {
+          // session expired
+          localStorage.removeItem("user")
+          localStorage.removeItem("token")
+          if (setUser) setUser(null)
+          navigate("/signin")
+          return
+        }
+
+        // 2. Fetch all events
+        const eventsRes = await fetch("http://localhost:5000/api/events")
+        const eventsData = await eventsRes.json()
+
+        if (eventsData.success) {
+          // Map _id to id to preserve frontend structure compatibility
+          const formattedEvents = eventsData.events.map(e => ({
+            ...e,
+            id: e._id
+          }))
+          setEvents(formattedEvents)
+        }
+
+      } catch (err) {
+        console.error("Error loading dashboard data:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDashboardData()
+  }, [navigate, setUser])
+
   // handle event registration
-  const handleRegister = (eventId) => {
+  const handleRegister = async (eventId) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      alert("Please log in to register for events")
+      navigate("/signin")
+      return
+    }
+
     // check if already registered
     if (registeredIds.includes(eventId)) {
       return
     }
 
-    // find event and check seats
     const targetEvent = events.find((e) => e.id === eventId)
-    if (targetEvent && targetEvent.seats > 0) {
-      // decrease seat count
-      setEvents(
-        events.map((e) => (e.id === eventId ? { ...e, seats: e.seats - 1 } : e))
-      )
-      // add to registered ids
-      setRegisteredIds([...registeredIds, eventId])
-      // add success notification
-      const newNotif = {
-        id: Date.now(),
-        type: "success",
-        text: `registered for ${targetEvent.title.toLowerCase()} successfully`,
-        time: "just now",
+    if (!targetEvent) return
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/events/${eventId}/register`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        // decrease seat count in UI
+        setEvents(
+          events.map((e) => (e.id === eventId ? { ...e, seats: e.seats - 1 } : e))
+        )
+        // add to registered ids
+        setRegisteredIds([...registeredIds, eventId])
+        // add success notification
+        const newNotif = {
+          id: Date.now(),
+          type: "success",
+          text: `registered for ${targetEvent.title.toLowerCase()} successfully`,
+          time: "just now",
+        }
+        setNotifications([newNotif, ...notifications])
+        alert("Registration successful!")
+      } else {
+        alert(data.message || "Registration failed")
       }
-      setNotifications([newNotif, ...notifications])
-      alert("Registration successful!")
+    } catch (err) {
+      console.error("Registration error:", err)
+      alert("Unable to connect to the server. Event registration failed.")
     }
   }
 
   // handle event cancellation
-  const handleCancelRegistration = (eventId) => {
+  const handleCancelRegistration = async (eventId) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      alert("Please log in first")
+      navigate("/signin")
+      return
+    }
+
     // check if registered
     if (!registeredIds.includes(eventId)) {
       return
     }
 
     const targetEvent = events.find((e) => e.id === eventId)
-    if (targetEvent) {
-      // increase seat count
-      setEvents(
-        events.map((e) => (e.id === eventId ? { ...e, seats: e.seats + 1 } : e))
-      )
-      // remove from registered ids
-      setRegisteredIds(registeredIds.filter((id) => id !== eventId))
-      // add cancel notification
-      const newNotif = {
-        id: Date.now(),
-        type: "warning",
-        text: `cancelled registration for ${targetEvent.title.toLowerCase()}`,
-        time: "just now",
+    if (!targetEvent) return
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/events/${eventId}/cancel`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        // increase seat count in UI
+        setEvents(
+          events.map((e) => (e.id === eventId ? { ...e, seats: e.seats + 1 } : e))
+        )
+        // remove from registered ids
+        setRegisteredIds(registeredIds.filter((id) => id !== eventId))
+        // add cancel notification
+        const newNotif = {
+          id: Date.now(),
+          type: "warning",
+          text: `cancelled registration for ${targetEvent.title.toLowerCase()}`,
+          time: "just now",
+        }
+        setNotifications([newNotif, ...notifications])
+        alert("Registration cancelled successfully")
+      } else {
+        alert(data.message || "Cancellation failed")
       }
-      setNotifications([newNotif, ...notifications])
-      alert("Registration cancelled successfully")
+    } catch (err) {
+      console.error("Cancellation error:", err)
+      alert("Unable to connect to the server. Cancellation failed.")
     }
   }
 
   // update user details
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault()
-    // save profile values
-    const newNotif = {
-      id: Date.now(),
-      type: "success",
-      text: "profile details updated successfully",
-      time: "just now",
+    const token = localStorage.getItem("token")
+    if (!token) {
+      alert("Session expired. Please log in again.")
+      navigate("/signin")
+      return
     }
-    setNotifications([newNotif, ...notifications])
-    alert("Profile updated!")
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/profile/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: profile.name,
+          email: profile.email
+        })
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        // update local storage user details
+        const savedUser = JSON.parse(localStorage.getItem("user") || "{}")
+        savedUser.name = data.user.name
+        savedUser.email = data.user.email
+        localStorage.setItem("user", JSON.stringify(savedUser))
+        
+        // update local state user if needed
+        if (setUser) setUser(savedUser)
+
+        const newNotif = {
+          id: Date.now(),
+          type: "success",
+          text: "profile details updated successfully",
+          time: "just now",
+        }
+        setNotifications([newNotif, ...notifications])
+        alert("Profile updated successfully!")
+      } else {
+        alert(data.message || "Failed to update profile")
+      }
+    } catch (err) {
+      console.error("Profile update error:", err)
+      alert("Unable to connect to the server. Profile update failed.")
+    }
   }
 
   // update user password
-  const handleSavePassword = (e) => {
+  const handleSavePassword = async (e) => {
     e.preventDefault()
     if (passwords.newPass !== passwords.confirm) {
       alert("New passwords do not match")
       return
     }
-    setPasswords({ current: "", newPass: "", confirm: "" })
-    const newNotif = {
-      id: Date.now(),
-      type: "success",
-      text: "password updated successfully",
-      time: "just now",
+
+    const token = localStorage.getItem("token")
+    if (!token) {
+      alert("Session expired. Please log in again.")
+      navigate("/signin")
+      return
     }
-    setNotifications([newNotif, ...notifications])
-    alert("Password updated!")
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/profile/password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          currentPassword: passwords.current,
+          newPassword: passwords.newPass
+        })
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        setPasswords({ current: "", newPass: "", confirm: "" })
+        const newNotif = {
+          id: Date.now(),
+          type: "success",
+          text: "password updated successfully",
+          time: "just now",
+        }
+        setNotifications([newNotif, ...notifications])
+        alert("Password updated successfully!")
+      } else {
+        alert(data.message || "Failed to update password")
+      }
+    } catch (err) {
+      console.error("Password update error:", err)
+      alert("Unable to connect to the server. Password update failed.")
+    }
   }
 
   // clear notification list
@@ -282,6 +393,40 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+  }
+
+  if (loading) {
+    return (
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "#0f172a",
+        color: "#f8fafc",
+        fontSize: "20px",
+        fontWeight: "600",
+        fontFamily: "inherit"
+      }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{
+            width: "40px",
+            height: "40px",
+            border: "4px solid #3b82f6",
+            borderTopColor: "transparent",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+            margin: "0 auto 16px auto"
+          }}></div>
+          Loading your Dashboard...
+          <style>{`
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          `}</style>
+        </div>
+      </div>
+    )
   }
 
   return (
