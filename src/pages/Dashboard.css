@@ -618,21 +618,10 @@
   padding: 16px 20px;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
   border-radius: 8px;
   gap: 16px;
   align-items: flex-start;
-}
-
-.notification-item.success {
-  border-left: 4px solid #10b981;
-}
-
-.notification-item.warning {
-  border-left: 4px solid #f59e0b;
-}
-
-.notification-item.info {
-  border-left: 4px solid #3b82f6;
 }
 
 .notif-icon {

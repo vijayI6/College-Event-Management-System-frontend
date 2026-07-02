@@ -353,9 +353,6 @@ Ticket ID: T-${ticket.id}-${profile.studentId}
               }}
             >
               <span className="db-icon-badge">NT</span> Notifications
-              {notifications.length > 0 && (
-                <span className="db-badge-count">{notifications.length}</span>
-              )}
             </button>
           </nav>
         </div>
