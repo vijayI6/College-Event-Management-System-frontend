@@ -5,6 +5,7 @@ import Landing from "./pages/Home"
 import SignIn from "./pages/Login"
 import Register from "./pages/Register"
 import Footer from "./components/Footer/Footer"
+import Dashboard from "./pages/Dashboard"
 
 function ScrollToHash() {
   const { hash, pathname } = useLocation()
@@ -27,6 +28,28 @@ function ScrollToHash() {
   return null
 }
 
+// subcomponent to handle conditional rendering
+function AppContent({ theme, toggleTheme, user, setUser }) {
+  const location = useLocation()
+  
+  // check if current path is dashboard
+  const isDashboard = location.pathname.startsWith("/dashboard")
+
+  return (
+    <>
+      <ScrollToHash />
+      {!isDashboard && <Navbar theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/signin" element={<SignIn setUser={setUser} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard theme={theme} toggleTheme={toggleTheme} />} />
+      </Routes>
+      {!isDashboard && <Footer />}
+    </>
+  )
+}
+
 export default function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "dark"
@@ -47,21 +70,16 @@ export default function App() {
     localStorage.setItem("theme", theme)
   }, [theme])
 
+  // toggle app color theme
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"))
   }
 
   return (
     <Router>
-      <ScrollToHash />
-      <Navbar theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/signin" element={<SignIn setUser={setUser} />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Footer />
+      <AppContent theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />
     </Router>
   )
 }
+
 

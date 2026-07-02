@@ -14,6 +14,7 @@ export default function SignIn({ setUser }) {
     setError("")
 
     try {
+      // perform sign in auth request
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
@@ -25,14 +26,17 @@ export default function SignIn({ setUser }) {
       const data = await response.json()
 
       if (data.success) {
+        // save user credentials on success
         localStorage.setItem("token", data.token)
         localStorage.setItem("user", JSON.stringify(data.user))
         setUser(data.user)
-        navigate("/")
+        // navigate to student dashboard view
+        navigate("/dashboard")
       } else {
         setError(data.message || "Invalid credentials. Please try again.")
       }
     } catch (err) {
+      // handle server connection failure
       setError("Unable to connect to the authentication server. Please verify the backend is running.")
       console.error("Login error:", err)
     } finally {

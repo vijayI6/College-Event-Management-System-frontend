@@ -61,9 +61,6 @@ export default function Navbar({ theme, toggleTheme, user, setUser }) {
             </li>
             {user ? (
               <>
-                <li className="nav-user">
-                  <span className="user-name">Hi, {user.name.split(" ")[0]}</span>
-                </li>
                 <li>
                   <button onClick={handleLogout} className="btn btn-outline" style={{ cursor: "pointer" }}>
                     Logout
