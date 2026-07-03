@@ -71,9 +71,9 @@ export default function SignIn({ setUser }) {
           <div className="auth-form-group">
             <div className="auth-label-row">
               <label className="auth-label">Password</label>
-              <a href="#" className="auth-forgot-link" onClick={(e) => e.preventDefault()}>
+              <Link to="/forgot-password" className="auth-forgot-link">
                 Forgot?
-              </a>
+              </Link>
             </div>
             <input
               type="password"

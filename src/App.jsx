@@ -6,6 +6,8 @@ import SignIn from "./pages/Login"
 import Register from "./pages/Register"
 import Footer from "./components/Footer/Footer"
 import Dashboard from "./pages/Dashboard"
+import ForgotPassword from "./pages/ForgotPassword"
+import ResetPassword from "./pages/ResetPassword"
 
 function ScrollToHash() {
   const { hash, pathname } = useLocation()
@@ -43,6 +45,8 @@ function AppContent({ theme, toggleTheme, user, setUser }) {
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />} />
       </Routes>
       {!isDashboard && <Footer />}
